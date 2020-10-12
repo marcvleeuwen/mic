@@ -6,7 +6,7 @@ function initAudio() {
     document.getElementById('volumeAmount').innerHTML = volume;
     navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia;
 
-    isSafari();
+    console.log('isSafari', isSafari);
 
     var ctx;
     var source;
@@ -16,7 +16,7 @@ function initAudio() {
         navigator.mediaDevices.getUserMedia(
             { audio: true },
             function (stream) {
-                ctx = isSafari() ? new webkitAudioContext() : new AudioContext();
+                ctx = isSafari ? new webkitAudioContext() : new AudioContext();
 
                 source = ctx.createMediaStreamSource(stream);
 
