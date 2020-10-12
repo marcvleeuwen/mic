@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mic</title>
+</head>
+<body onload="initAudio()">
+    <h4>Volume</h4>
+    <h1 id="volumeAmount"></h1>
+    <label for="volumeSlide">
+        <input type="range" min="0" max="100" id="volumeSlide" value="100" onchange="onVolumeChange(this)">
+    </label>
+    <label for="mute">
+        <input type="checkbox" id="mute" value="false" onchange="onMuteChange(this)">
+    </label>
+    
+    <script src="audio.js"></script>
+</body>
+</html>
