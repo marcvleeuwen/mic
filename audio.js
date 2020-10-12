@@ -6,6 +6,8 @@ function initAudio() {
     document.getElementById('volumeAmount').innerHTML = volume;
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
+    isSafari();
+
     var ctx;
     var source;
     var destination;
@@ -17,10 +19,10 @@ function initAudio() {
                 ctx = isSafari() ? new webkitAudioContext() : new AudioContext();
 
                 source = ctx.createMediaStreamSource(stream);
-                
+
                 // set destination to be the origin (device speakers)
                 destination = ctx.destination;
-                
+
                 // gainNode to control volume
                 gainNode = ctx.createGain();
 
@@ -64,8 +66,8 @@ function onMuteChange(el) {
 
 function isSafari() {
     is = /constructor/i.test(window.HTMLElement)
-    || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })
-        (!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
-        alert(is);
+        || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })
+            (!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+    alert(is);
     return is;
 }
