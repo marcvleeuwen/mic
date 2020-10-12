@@ -12,9 +12,8 @@ function initAudio() {
 
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia(
-            { audio: true },
-            function (stream) {
-                ctx = isSafari ? new webkitAudioContext() : new AudioContext();
+            { audio: true }).then((stream) => {
+                ctx = isSafari() ? new webkitAudioContext() : new AudioContext();
 
                 source = ctx.createMediaStreamSource(stream);
 
@@ -36,13 +35,13 @@ function initAudio() {
                 document.getElementById('mute').onchange((el) => {
                     gainNode.gain.value = el.value ? volume * 0.01 : 0
                 });
-
-                document.getElementById('mute').onchange((el) => {
+                document.getElementById('volumeSlide').onchange((el) => {
                     gainNode.gain.value = isMuted ? 0 : volume * 0.01;
                 });
-            },
-            function () { console.log("Error 003.") }
-        );
+            }
+            ).catch((e) => {
+                console.log("Error 003.")
+            });
     } else {
         alert(`Your browser doesn't support the required audio API 😅`);
     }
