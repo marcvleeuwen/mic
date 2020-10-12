@@ -6,8 +6,6 @@ function initAudio() {
     document.getElementById('volumeAmount').innerHTML = volume;
     navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia;
 
-    console.log('isSafari', isSafari);
-
     var ctx;
     var source;
     var destination;
@@ -34,6 +32,14 @@ function initAudio() {
 
                 // set initial volume based
                 gainNode.gain.value = volume * 0.01;
+
+                document.getElementById('mute').onchange((el) => {
+                    gainNode.gain.value = el.value ? volume * 0.01 : 0
+                });
+
+                document.getElementById('mute').onchange((el) => {
+                    gainNode.gain.value = isMuted ? 0 : volume * 0.01;
+                });
             },
             function () { console.log("Error 003.") }
         );
@@ -47,12 +53,10 @@ function onVolumeChange(el) {
         document.getElementById('volumeAmount').innerHTML = el.value;
         volume = el.value;
     }
-    gainNode.gain.value = isMuted ? 0 : volume * 0.01;
 }
 
 function onMuteChange(el) {
     isMuted = el.checked;
-    gainNode.gain.value = isMuted ? 0 : volume * 0.01;
     if (isMuted) {
         document.getElementById('volumeSlide').value = 0;
         document.getElementById('volumeSlide').setAttribute('disabled', true);
