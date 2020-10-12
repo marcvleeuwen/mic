@@ -4,7 +4,7 @@ let gainNode;
 
 function initAudio() {
     document.getElementById('volumeAmount').innerHTML = volume;
-    MediaDevices.getUserMedia = MediaDevices.getUserMedia || MediaDevices.webkitGetUserMedia || MediaDevices.mozGetUserMedia;
+    navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia;
 
     isSafari();
 
@@ -12,8 +12,8 @@ function initAudio() {
     var source;
     var destination;
 
-    if (MediaDevices.getUserMedia) {
-        MediaDevices.getUserMedia(
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia(
             { audio: true },
             function (stream) {
                 ctx = isSafari() ? new webkitAudioContext() : new AudioContext();
@@ -66,6 +66,6 @@ function onMuteChange(el) {
 
 function isSafari() {
     return /constructor/i.test(window.HTMLElement)
-    || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })
-        (!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));;
+        || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })
+            (!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
 }
